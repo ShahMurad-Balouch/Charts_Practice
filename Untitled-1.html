@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div>
+      <canvas id="barchart" ></canvas>
+      <!-- <canvas id="barchart" style="width: 500px; height: 200px;"></canvas> -->
+   
+    </div>
+
+    <script>
+
+let jsondata ;
+fetch('./data.json')
+.then(function(response){
+   if(response.status == 200){
+      return response.json();
+   }
+})
+.then(function(data){ 
+ 
+   jsondata = data;
+   console.log(jsondata)
+   const charts = document.getElementById("barchart");
+   //// Bar Chat
+   // new Chart(charts,{
+    //     type : 'bar',
+    //     data: {
+      //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      //         datasets:[{
+        //           label: 'My First Dataset',
+        //             data: [12, 19, 3, 5, 3],
+        //             backgroundColor: [
+          //               'green',
+          //               'rgba(255, 99, 132, 0.2)',
+//       'rgba(255, 205, 86, 0.2)',
+//       'rgba(75, 192, 192, 0.2)',
+//       'rgba(54, 162, 235, 0.2)',
+//       'rgba(153, 102, 255, 0.2)',
+//       'rgba(201, 203, 207, 0.2)'
+//     ],
+//     borderColor: [
+  //       'rgb(255, 99, 132)',
+  //       'rgb(255, 159, 64)',
+  //       'rgb(255, 205, 86)',
+  //       'rgb(75, 192, 192)',
+  //       'rgb(54, 162, 235)',
+  //       'rgb(153, 102, 255)',
+  //       'rgb(201, 203, 207)'
+  //     ],
+  //             borderWidth: 1
+  //         }]
+  //     },
+  //     options: {
+    //       scales: {
+      //         y: {
+        //           beginAtZero: true
+        //         }
+        //       }
+        //     }
+        // })
+        
+        
+        //// bubble Chart
+        // new Chart(charts,{
+          //   type : "bubble",
+          //   data : {
+            // datasets : [{
+              //     label: 'First Dataset',
+              //     data: [{
+                //       x: 20,
+                //       y: 30,
+                //       r: 15
+                //     }, {
+                  //       x: 40,
+                  //       y: 10,
+//       r: 10
+//     }],
+//     backgroundColor: 'rgb(255, 99, 132)',
+//     hoverBackgroundColor:"yellow",
+//     rotation:70
+//   }]
+//   }
+// });
+
+
+//// doughnut 
+// new Chart(charts,{
+  //   type : 'doughnut',
+  //   data : {
+    //     labels : ['red','green','blue','orange'],
+    //     datasets : [{
+      //       data : [100,324,543,23],
+      //       backgroundColor :['red','green','blue','orange'],
+      
+      
+      //     }]
+      //   }
+      // })
+      
+      
+      //// pie chart
+//       new Chart(charts,{
+//           type : 'pie',
+//           data : {
+//                labels : jsondata.map(row=>row.title),
+//               datasets : [{
+//                    data : jsondata.map(col=>col.price),
+//                 }]
+//               },
+//               options: {
+//               hoverOffset: 400,
+//               radius : "100",
+//               cutout : "2%",     
+//               animateScale : true
+//   } 
+// })
+            
+            
+            //// Line Chart 
+//             new Chart(charts,{
+//               type: 'line',
+//               data:{
+//                 labels : jsondata.map(row=>row.title),
+//                 datasets :[{
+//       label : "lineDataset",
+//       data : jsondata.map(col=>col.price),
+//       fill : {value: 25},
+//       borderColor: 'rgb(75, 192, 192)',
+//       tension : 0.3,
+//     }]
+//   },
+//   options: {
+//     animations: {
+//       tension: {
+//         duration: 1000,
+//         easing: 'linear',
+//         from: 1,
+//         to: 0,
+//         loop: true
+//       }
+//     }
+//   }
+// })
+
+////polar chart
+// new Chart(charts,{
+  //   type : 'polarArea',
+  //   data : {
+    
+  //   labels : jsondata.map(row=>row.title),
+    //   datasets: [{
+      
+    //    data : jsondata.map(col=>col.price),
+    //     backgroundColor: [
+      //       'rgb(255, 99, 132)',
+      //       'rgb(75, 192, 192)',
+      //       'rgb(255, 205, 86)',
+//       'rgb(201, 203, 207)',
+//       'rgb(54, 162, 235)'
+//     ]
+//   }]
+
+//   }
+// })
+
+
+//// Mixed Chart Types
+new Chart(charts,{
+  data:{
+    datasets : [
+      {
+      type : 'pie',
+        label : "PieChart",
+          data : jsondata.map(col=>col.price),
+          order: 2 
+      },
+  {   
+    type: 'line',
+    label : "lineDataset",
+                  data : jsondata.map(col=>col.price),
+                  fill : {value: 25},
+                  tension : 4,
+                  order: 1
+                },
+              ],
+              labels : jsondata.map(row=>row.title),
+            },
+            options: {
+              hoverOffset: 400,
+              // radius : "100",
+              cutout : "1%",     
+              animateScale : true,
+              animations: {
+                tension: {
+                  duration: 1000,
+                  easing: 'easeInSine',
+                  from: 1,
+                  to: 0,
+                  loop: true
+                }
+              },
+            
+          }
+            }
+            )
+            
+            
+          });	
+          
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
